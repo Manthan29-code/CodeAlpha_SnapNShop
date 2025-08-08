@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}SnapNShop - Your E-commerce Destination{% endblock %}</title>
+    
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <!-- Custom CSS -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <!-- Brand Logo -->
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-bag-check-fill me-2"></i>SnapNShop
+            </a>
+            
+            <!-- Mobile Toggle Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <!-- Navigation Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-house me-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-box-seam me-1"></i>Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-info-circle me-1"></i>About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="bi bi-telephone me-1"></i>Contact
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Search Bar -->
+                <form class="d-flex me-3" role="search">
+                    <div class="input-group">
+                        <input class="form-control search-input" type="search" placeholder="Search products..." aria-label="Search">
+                        <button class="btn search-btn" type="submit">
+                            <i class="bi bi-search text-white"></i>
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- User Actions -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#">
+                            <i class="bi bi-heart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                3
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="#">
+                            <i class="bi bi-cart3"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                                2
+                            </span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle me-1"></i>Account
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Login</a></li>
+                            <li><a class="dropdown-item" href="#">Register</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">My Orders</a></li>
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main style="margin-top: 80px;">
+        {% block content %}
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6">
+                        <h1 class="hero-title">Discover Amazing Products at SnapNShop</h1>
+                        <p class="hero-subtitle">
+                            Your one-stop destination for quality products, unbeatable prices, and exceptional customer service. 
+                            Shop with confidence and enjoy fast, secure delivery.
+                        </p>
+                        <div class="d-flex flex-column flex-md-row justify-content-md-center pb-3"">
+                            <button class="btn btn-hero-primary" >
+                                <i class="bi bi-bag-plus me-2"></i>Start Shopping
+                            </button>
+                            <button class="btn btn-hero-secondary">
+                                <i class="bi bi-play-circle me-2"></i>Learn More
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="E-commerce Shopping" class="hero-image">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="py-5">
+            <div class="container">
+                <div class="row text-center mb-4">
+                    <div class="col-12">
+                        <h2 class="text-dark-custom mb-3">Shop by Categories</h2>
+                        <p class="text-medium-custom">Explore our wide range of product categories</p>
+                    </div>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6 col-lg-3">
+                        <div class="category-card text-center h-100">
+                            <div class="category-icon mx-auto mb-3">
+                                <i class="bi bi-laptop"></i>
+                            </div>
+                            <h5 class="category-title mb-2">Electronics</h5>
+                            <p class="category-text mb-3">Smartphones, Laptops, Gaming & More</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Explore</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="category-card text-center h-100">
+                            <div class="category-icon mx-auto mb-3">
+                                <i class="bi bi-bag"></i>
+                            </div>
+                            <h5 class="category-title mb-2">Fashion</h5>
+                            <p class="category-text mb-3">Clothing, Shoes, Accessories & Style</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Explore</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="category-card text-center h-100">
+                            <div class="category-icon mx-auto mb-3">
+                                <i class="bi bi-house-door"></i>
+                            </div>
+                            <h5 class="category-title mb-2">Home & Garden</h5>
+                            <p class="category-text mb-3">Furniture, Decor, Tools & Garden</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Explore</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-3">
+                        <div class="category-card text-center h-100">
+                            <div class="category-icon mx-auto mb-3">
+                                <i class="bi bi-trophy"></i>
+                            </div>
+                            <h5 class="category-title mb-2">Sports</h5>
+                            <p class="category-text mb-3">Fitness, Outdoor, Team Sports & More</p>
+                            <a href="#" class="btn btn-outline-primary btn-sm">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12 text-center">
+                        <a href="#" class="btn btn-primary-custom btn-lg">
+                            <i class="bi bi-grid me-2"></i>View All Categories
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-5 bg-light-custom">
+            <div class="container">
+                <div class="row text-center mb-5">
+                    <div class="col-12">
+                        <h2 class="text-dark-custom mb-3">Why Choose SnapNShop?</h2>
+                        <p class="text-medium-custom">We're committed to providing you with the best shopping experience</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="feature-card text-center">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-truck"></i>
+                            </div>
+                            <h5 class="feature-title">Fast Delivery</h5>
+                            <p class="feature-text">Get your orders delivered quickly with our reliable shipping partners. Free delivery on orders over $50.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card text-center">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-shield-check"></i>
+                            </div>
+                            <h5 class="feature-title">Secure Shopping</h5>
+                            <p class="feature-text">Shop with confidence knowing your personal and payment information is protected with advanced security.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="feature-card text-center">
+                            <div class="feature-icon mx-auto">
+                                <i class="bi bi-headset"></i>
+                            </div>
+                            <h5 class="feature-title">24/7 Support</h5>
+                            <p class="feature-text">Our dedicated customer support team is here to help you anytime, anywhere. Your satisfaction is our priority.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6 class="text-primary-custom">SnapNShop</h6>
+                    <p class="text-medium-custom">Your trusted e-commerce partner for quality products and exceptional service.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-light me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-light me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                    <p class="mt-2 mb-0 text-medium-custom">&copy; 2025 SnapNShop. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JavaScript CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

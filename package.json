@@ -1,0 +1,31 @@
+{
+  "name": "snapnshop",
+  "version": "1.0.0",
+  "description": "E-commerce platform built with Django",
+  "main": "manage.py",
+  "scripts": {
+    "dev": "python manage.py makemigrations && python manage.py migrate && python manage.py runserver",
+    "start": "python manage.py runserver",
+    "migrate": "python manage.py migrate",
+    "makemigrations": "python manage.py makemigrations",
+    "shell": "python manage.py shell",
+    "test": "python manage.py test",
+    "collectstatic": "python manage.py collectstatic --noinput",
+    "createsuperuser": "python manage.py createsuperuser",
+    "install-deps": "pip install -r requirements.txt",
+    "freeze": "pip freeze > requirements.txt",
+    "setup": "npm run install-deps && npm run migrate && npm run createsuperuser"
+  },
+  "keywords": [
+    "django",
+    "ecommerce",
+    "python",
+    "web-application"
+  ],
+  "author": "Manthan29-code",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Manthan29-code/CodeAlpha_SnapNShop.git"
+  }
+}

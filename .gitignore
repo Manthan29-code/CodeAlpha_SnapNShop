@@ -1,2 +1,35 @@
 /venv
 /reference
+# Python cache & compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual environment
+venv/
+.env/
+*.env
+
+# SQLite database
+db.sqlite3
+
+# Django migrations (only ignore if you don't want to commit them — usually keep them)
+*/migrations/__pycache__/
+# Uncomment next line if you want to ignore all migrations
+# */migrations/*.py
+
+# VSCode settings
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Static & media (if generated or user-uploaded)
+staticfiles/
+media/
+
+# Node.js (since you have package.json)
+node_modules/

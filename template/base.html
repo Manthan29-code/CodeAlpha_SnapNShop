@@ -35,7 +35,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'front_view' %}">
                             <i class="bi bi-house me-1"></i>Home
                         </a>
                     </li>
@@ -57,33 +57,42 @@
                 </ul>
                 
                 <!-- Search Bar -->
-                <form class="d-flex me-3" role="search">
+                <!-- <form class="d-flex me-3" role="search">
                     <div class="input-group">
                         <input class="form-control search-input" type="search" placeholder="Search products..." aria-label="Search">
                         <button class="btn search-btn" type="submit">
                             <i class="bi bi-search text-white"></i>
                         </button>
                     </div>
-                </form>
+                </form> -->
                 
                 <!-- User Actions -->
                 <ul class="navbar-nav">
+                    {% if user.is_authenticated  and not user.is_superuser %}
+                    <p>Welcome, {{ user.username }}!</p>
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="#">
                             <i class="bi bi-heart"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                 3
-                            </span>
+                            </span> -->
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link position-relative" href="#">
+                        <a class="nav-link position-relative" >
                             <i class="bi bi-cart3"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                            <!-- <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
                                 2
-                            </span>
+                            </span> -->
                         </a>
                     </li>
+                    <button class="btn btn-danger"><a href="/logout">Logout</a></button>
+                    {% else %}
+                    
+                    <button href="/login">Login</button>
+                    <button href="/register">Register</button>
+                    {% endif %}
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle me-1"></i>Account
@@ -114,8 +123,8 @@
                             Your one-stop destination for quality products, unbeatable prices, and exceptional customer service. 
                             Shop with confidence and enjoy fast, secure delivery.
                         </p>
-                        <div class="d-flex flex-column flex-md-row justify-content-md-center pb-3"">
-                            <button class="btn btn-hero-primary" >
+                        <div class="d-flex flex-column flex-md-row justify-content-md-center pb-3">
+                            <button class="btn btn-hero-primary" onclick="document.querySelector('#shopping').scrollIntoView({ behavior: 'smooth' });">
                                 <i class="bi bi-bag-plus me-2"></i>Start Shopping
                             </button>
                             <button class="btn btn-hero-secondary">
@@ -133,7 +142,7 @@
 
         <!-- Categories Section -->
         <section class="py-5">
-            <div class="container">
+            <div class="container " id="shopping">
                 <div class="row text-center mb-4">
                     <div class="col-12">
                         <h2 class="text-dark-custom mb-3">Shop by Categories</h2>

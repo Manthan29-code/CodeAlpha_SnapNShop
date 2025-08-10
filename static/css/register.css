@@ -1,0 +1,288 @@
+/* Register Page Styles */
+
+/* Color Variables (inherited from base.css) */
+:root {
+  --main-blue: #1a73e8;
+  --dark-navy: #0d47a1;
+  --light-blue: #e3f2fd;
+  --success-green: #4caf50;
+  --warning-orange: #ff9800;
+  --error-red: #f44336;
+  --dark-gray: #212121;
+  --medium-gray: #757575;
+  --light-gray: #fafafa;
+  --white: #ffffff;
+}
+
+/* Authentication Icon */
+.auth-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, var(--main-blue), var(--dark-navy));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 2.5rem;
+  margin: 0 auto;
+}
+
+/* Form Input Styles */
+.auth-input {
+  border: 2px solid var(--light-blue);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.auth-input:focus {
+  border-color: var(--main-blue);
+  box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.25);
+  outline: none;
+}
+
+/* Primary Button Styles */
+.btn-primary-auth {
+  background: linear-gradient(135deg, var(--main-blue), var(--dark-navy));
+  border: none;
+  border-radius: 10px;
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: var(--white);
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+.btn-primary-auth:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(26, 115, 232, 0.3);
+  color: var(--white);
+}
+
+.btn-primary-auth:focus {
+  box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.25);
+}
+
+/* Role Selection Cards */
+.role-card {
+  border: 2px solid var(--light-blue);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--white);
+}
+
+.role-card:hover {
+  border-color: var(--main-blue);
+  background-color: var(--light-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(26, 115, 232, 0.1);
+}
+
+.role-card.selected {
+  border-color: var(--main-blue);
+  background-color: var(--light-blue);
+  box-shadow: 0 5px 15px rgba(26, 115, 232, 0.15);
+}
+
+.role-card input[type="radio"] {
+  display: none;
+}
+
+.role-card .form-check-label {
+  cursor: pointer;
+  width: 100%;
+  margin: 0;
+}
+
+.role-card i {
+  color: var(--main-blue);
+  transition: color 0.3s ease;
+}
+
+.role-card:hover i,
+.role-card.selected i {
+  color: var(--dark-navy);
+}
+
+/* Register Card Styles */
+.register-card {
+  background: var(--white);
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: none;
+  overflow: hidden;
+}
+
+/* Form Labels */
+.form-label {
+  font-weight: 600;
+  color: var(--dark-gray);
+  margin-bottom: 0.5rem;
+}
+
+/* Form Text Helper */
+.form-text {
+  color: var(--medium-gray);
+  font-size: 0.875rem;
+}
+
+/* Checkbox Styles */
+.form-check-input:checked {
+  background-color: var(--main-blue);
+  border-color: var(--main-blue);
+}
+
+.form-check-input:focus {
+  border-color: var(--main-blue);
+  box-shadow: 0 0 0 0.2rem rgba(26, 115, 232, 0.25);
+}
+
+.form-check-label {
+  color: var(--medium-gray);
+  cursor: pointer;
+}
+
+/* Password Toggle Button */
+.btn-outline-secondary {
+  border-color: var(--light-blue);
+  color: var(--medium-gray);
+  border-radius: 0 10px 10px 0;
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--light-blue);
+  border-color: var(--main-blue);
+  color: var(--main-blue);
+}
+
+/* Links */
+.text-primary-custom {
+  color: var(--main-blue) !important;
+  text-decoration: none;
+}
+
+.text-primary-custom:hover {
+  color: var(--dark-navy) !important;
+  text-decoration: underline;
+}
+
+.text-medium-custom {
+  color: var(--medium-gray) !important;
+}
+
+.text-dark-custom {
+  color: var(--dark-gray) !important;
+}
+
+/* Alert Styles for Register */
+.alert-success {
+  background-color: rgba(76, 175, 80, 0.1);
+  border: 1px solid var(--success-green);
+  color: var(--success-green);
+  border-radius: 10px;
+}
+
+.alert-danger {
+  background-color: rgba(244, 67, 54, 0.1);
+  border: 1px solid var(--error-red);
+  color: var(--error-red);
+  border-radius: 10px;
+}
+
+.alert-warning {
+  background-color: rgba(255, 152, 0, 0.1);
+  border: 1px solid var(--warning-orange);
+  color: var(--warning-orange);
+  border-radius: 10px;
+}
+
+.alert-info {
+  background-color: rgba(26, 115, 232, 0.1);
+  border: 1px solid var(--main-blue);
+  color: var(--main-blue);
+  border-radius: 10px;
+}
+
+/* Password Strength Indicator */
+.password-strength {
+  height: 5px;
+  border-radius: 3px;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.password-strength.weak {
+  background-color: var(--error-red);
+  width: 33%;
+}
+
+.password-strength.medium {
+  background-color: var(--warning-orange);
+  width: 66%;
+}
+
+.password-strength.strong {
+  background-color: var(--success-green);
+  width: 100%;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .auth-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+  
+  .card-body {
+    padding: 2rem !important;
+  }
+  
+  .btn-primary-auth {
+    padding: 0.65rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .role-card {
+    padding: 0.75rem;
+  }
+  
+  .role-card i {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1.5rem !important;
+  }
+  
+  .auth-input {
+    padding: 0.65rem 0.75rem;
+  }
+  
+  .role-card {
+    padding: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .role-card i {
+    font-size: 2rem;
+  }
+  
+  .role-card strong {
+    font-size: 0.9rem;
+  }
+  
+  .role-card .small {
+    font-size: 0.75rem;
+  }
+}

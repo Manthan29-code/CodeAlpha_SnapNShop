@@ -1,1 +1,112 @@
-<h1>card component</h1>
+<div class="col-lg-3 col-md-4 col-sm-6 product-card-wrapper">
+    <div class="product-card" 
+         data-product-id="{{ product.id }}"
+         data-product-title="{{ product.title }}"
+         data-product-price="{{ product.price }}"
+         data-product-description="{{ product.description }}"
+         data-product-category="{{ product.category }}"
+         data-product-image="{{ product.image }}"
+         data-product-rate="{{ product.rating.rate }}"
+         data-product-count="{{ product.rating.count }}">
+        
+        <!-- Front Side -->
+        <div class="card-side card-front">
+            <div class="card-image">
+                <img src="{{ product.image }}" alt="{{ product.title }}" class="product-img">
+                <div class="card-badges">
+                    {% if product.rating.rate >= 4 %}
+                        <span class="badge bg-success">
+                            <i class="bi bi-star-fill"></i> Popular
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="card-content">
+                <div class="card-category text-muted">{{ product.category|title }}</div>
+                <h5 class="card-title">{{ product.title|truncatechars:50 }}</h5>
+                
+                <div class="card-rating">
+                    <div class="stars">
+                        {% with product.rating.rate as rate %}
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= rate %}
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                {% else %}
+                                    <i class="bi bi-star text-muted"></i>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+                    <span class="rating-text">({{ product.rating.count }} reviews)</span>
+                </div>
+                
+                <div class="card-price">
+                    <span class="price-current">₹{{ product.price|floatformat:0 }}</span>
+                    <span class="price-currency">INR</span>
+                </div>
+                
+                <div class="card-actions">
+                    <button class="btn btn-outline-primary btn-details" onclick="flipCard(this)">
+                        <i class="bi bi-info-circle me-1"></i>Details
+                    </button>
+                    {% if user.is_authenticated %}
+                        <button class="btn btn-primary btn-add" onclick="addProduct(this)">
+                            <i class="bi bi-plus-circle me-1"></i>Add
+                        </button>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="btn btn-primary">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>Login to Add
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Back Side -->
+        <div class="card-side card-back">
+            <div class="card-content-back">
+                <div class="back-header">
+                    <h5 class="card-title-back">{{ product.title|truncatechars:40 }}</h5>
+                    <button class="btn btn-sm btn-outline-secondary btn-back" onclick="flipCard(this)">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </button>
+                </div>
+                
+                <div class="product-description">
+                    <h6>Description:</h6>
+                    <p>{{ product.description }}</p>
+                </div>
+                
+                <div class="product-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Category:</span>
+                        <span class="detail-value">{{ product.category|title }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Rating:</span>
+                        <span class="detail-value">{{ product.rating.rate }}/5</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-label">Reviews:</span>
+                        <span class="detail-value">{{ product.rating.count }} customers</span>
+                    </div>
+                </div>
+                
+                <div class="back-price">
+                    <span class="price-large">₹{{ product.price|floatformat:0 }}</span>
+                </div>
+                
+                {% if user.is_authenticated %}
+                    <button class="btn btn-success btn-add-back w-100" onclick="addProduct(this)">
+                        <i class="bi bi-cart-plus me-2"></i>Add to Collection
+                    </button>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-primary w-100">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Login to Add
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

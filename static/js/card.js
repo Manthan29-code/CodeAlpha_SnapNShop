@@ -9,10 +9,13 @@ function flipCard(button) {
 // Add product to collection
 async function addProduct(button) {
     const card = button.closest('.product-card');
+    const usdPrice = parseFloat(card.dataset.productPrice);
+    const inrPrice = convertToINR(usdPrice);
+    
     const productData = {
         id: card.dataset.productId,
         title: card.dataset.productTitle,
-        price: parseFloat(card.dataset.productPrice),
+        price: inrPrice, // Use converted INR price
         description: card.dataset.productDescription,
         category: card.dataset.productCategory,
         image: card.dataset.productImage,
@@ -27,11 +30,14 @@ async function addProduct(button) {
     button.disabled = true;
 
     try {
+        // Get CSRF token from Django template or cookie
+        const csrfToken = getCSRFToken();
+        
         const response = await fetch('/product/add/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
+                'X-CSRFToken': csrfToken
             },
             body: JSON.stringify(productData)
         });
@@ -68,7 +74,19 @@ async function addProduct(button) {
     }
 }
 
-// Get CSRF token
+// Get CSRF token from Django template or cookie
+function getCSRFToken() {
+    // First try to get from Django template variable
+    const csrfTokenElement = document.querySelector('[name=csrfmiddlewaretoken]');
+    if (csrfTokenElement) {
+        return csrfTokenElement.value;
+    }
+    
+    // Fallback to cookie method
+    return getCookie('csrftoken');
+}
+
+// Get CSRF token from cookie (fallback method)
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -106,6 +124,9 @@ function showToast(message, type = 'success') {
 
 // Initialize card animations on page load
 document.addEventListener('DOMContentLoaded', function() {
+    // Convert USD prices to INR and update display
+    updatePricesToINR();
+    
     // Add fade-in animation to cards
     const cards = document.querySelectorAll('.product-card-wrapper');
     cards.forEach((card, index) => {
@@ -125,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         cardWrapper.addEventListener('mouseenter', function() {
             if (!card.classList.contains('flipped')) {
-                card.style.transform = 'translateY(-10px)';
+                card.style.transform = 'translateY(-5px)';
                 card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.15)';
             }
         });
@@ -138,6 +159,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Convert and update all USD prices to INR
+function updatePricesToINR() {
+    const priceElements = document.querySelectorAll('.price-value');
+    priceElements.forEach(priceElement => {
+        const usdPrice = parseFloat(priceElement.textContent);
+        const inrPrice = convertToINR(usdPrice);
+        priceElement.textContent = inrPrice.toLocaleString('en-IN');
+    });
+}
 
 // Search functionality
 function searchProducts() {
@@ -210,10 +241,21 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Price conversion to INR (if needed for future API integrations)
+// Price conversion to INR with proper formatting
 function convertToINR(usdPrice) {
-    const exchangeRate = 83; // Approximate USD to INR rate
-    return Math.round(usdPrice * exchangeRate);
+    const exchangeRate = 83.12; // Current USD to INR rate (approximate)
+    const inrPrice = usdPrice * exchangeRate;
+    return Math.round(inrPrice); // Round to nearest rupee
+}
+
+// Format price for display
+function formatINRPrice(price) {
+    return new Intl.NumberFormat('en-IN', {
+        style: 'currency',
+        currency: 'INR',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(price);
 }
 
 // Smooth scroll to top function

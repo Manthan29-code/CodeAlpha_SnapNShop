@@ -69,7 +69,7 @@
                 <!-- User Actions -->
                 <ul class="navbar-nav">
                     {% if user.is_authenticated  and not user.is_superuser %}
-                    <p>Welcome, {{ user.username }}!</p>
+                    <p class="text-light">Welcome, {{ user.name }}!</p>
                     <li class="nav-item">
                         <a class="nav-link position-relative" href="#">
                             <i class="bi bi-heart"></i>
@@ -86,11 +86,10 @@
                             </span> -->
                         </a>
                     </li>
-                    <button class="btn btn-danger"><a href="/logout">Logout</a></button>
+                    <button class="btn btn-danger "><a class=" text-light text-decoration-none" href="/logout">Logout</a></button>                                        
                     {% else %}
-                    
-                    <button href="/login">Login</button>
-                    <button href="/register">Register</button>
+                    <button class="btn btn-danger "><a class=" text-light text-decoration-none" href="/login">login</a></button>
+                    <button class="btn btn-danger "><a class=" text-light text-decoration-none" href="/lregister">register</a></button>
                     {% endif %}
                     
                     <li class="nav-item dropdown">

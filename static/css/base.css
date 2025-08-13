@@ -52,9 +52,13 @@
 }
 
 .btn-primary-custom:hover {
-  background-color: var(--dark-navy);
+  /* background-color: var(--dark-navy);
   border-color: var(--dark-navy);
-  transform: translateY(-1px);
+  transform: translateY(-1px); */
+  color:  var(--main-blue);   
+  border-color: var(--dark-navy);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(13, 71, 161, 0.3);
 }
 
 /* Hero Section Styles */
@@ -93,6 +97,7 @@
 }
 
 .btn-hero-primary:hover {
+ color:  var(--main-blue);   
   border-color: var(--dark-navy);
   transform: translateY(-2px);
   box-shadow: 0 8px 25px rgba(13, 71, 161, 0.3);

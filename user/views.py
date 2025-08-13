@@ -147,5 +147,5 @@ def register(request):
 
 def logout_view(request):
     auth_logout(request)
-    messages.success(request, 'You have been logged out successfully.')
+    # messages.success(request, 'You have been logged out successfully.')
     return redirect('front_view')

@@ -9,7 +9,6 @@
 {% endblock %}
 
 {% block content %}
-{% csrf_token %}
 <section class="products-section py-5">
     <div class="container">
         <!-- Header -->
@@ -94,6 +93,6 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{% static 'js/card.js' %}"></script>
-<script src="{% static 'js/allProduct.js' %}"></script>
+<script src="{% static 'js/card.js' %}" defer></script>
+<script src="{% static 'js/allProduct.js' %}" defer></script>
 {% endblock %}

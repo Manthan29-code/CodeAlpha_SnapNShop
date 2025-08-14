@@ -134,8 +134,8 @@ def register(request):
                 
                 # Redirect based on role
                 if role == 'vendor':
-                    messages.info(request, 'As a vendor, you can start adding your products after account verification.')
-                    return redirect('vendor_dashboard')  # Create this URL later
+                    # messages.info(request, 'As a vendor, you can start adding your products after account verification.')
+                    return redirect('front_view')  # Create this URL later
                 else:
                     return redirect('front_view')
             
@@ -149,3 +149,101 @@ def logout_view(request):
     auth_logout(request)
     # messages.success(request, 'You have been logged out successfully.')
     return redirect('front_view')
+
+def profile_view(request):
+    if not request.user.is_authenticated:
+        messages.error(request, 'You need to be logged in to view your profile.')
+        return redirect('login')
+    
+    user = request.user
+    
+    # Handle POST request for updating profile
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        
+        # Validation
+        errors = []
+        
+        if not all([name, username, email]):
+            errors.append('All fields are required.')
+        
+        # Check if username already exists for other users
+        if User.objects.filter(username__iexact=username).exclude(id=user.id).exists():
+            errors.append(f'Username "{username}" is already taken by another user.')
+        
+        # Check if email already exists for other users
+        if User.objects.filter(email__iexact=email).exclude(id=user.id).exists():
+            errors.append(f'Email "{email}" is already registered by another user.')
+        
+        # Additional validations
+        if len(username) < 3:
+            errors.append('Username must be at least 3 characters long.')
+        
+        if not username.replace('_', '').replace('-', '').isalnum():
+            errors.append('Username can only contain letters, numbers, hyphens, and underscores.')
+        
+        # Email format validation (basic)
+        if '@' not in email or '.' not in email.split('@')[-1]:
+            errors.append('Please enter a valid email address.')
+        
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+        else:
+            try:
+                # Update user information
+                user.name = name
+                user.username = username
+                user.email = email
+                user.save()
+                
+                messages.success(request, 'Your profile has been updated successfully!')
+                return redirect('profile')
+            except IntegrityError:
+                messages.error(request, 'An error occurred while updating your profile. Please try again.')
+    
+    # Get user's products and statistics
+    user_products = user.products.all().order_by('-created_at')
+    
+    # USD to INR conversion rate
+    USD_TO_INR_RATE = 83
+    
+    # Calculate statistics (convert USD prices to INR)
+    total_products = user_products.count()
+    total_quantity = sum(product.quantity for product in user_products)
+    total_spent = sum((product.price * USD_TO_INR_RATE) * product.quantity for product in user_products)
+    
+    # Category statistics
+    category_stats = {}
+    for product in user_products:
+        category = product.category
+        inr_price = product.price * USD_TO_INR_RATE
+        if category in category_stats:
+            category_stats[category]['count'] += product.quantity
+            category_stats[category]['amount'] += inr_price * product.quantity
+        else:
+            category_stats[category] = {
+                'count': product.quantity,
+                'amount': inr_price * product.quantity
+            }
+    
+    # Most purchased category
+    most_purchased_category = max(category_stats.items(), key=lambda x: x[1]['count'])[0] if category_stats else None
+    
+    # Average product price (in INR)
+    average_price = total_spent / total_quantity if total_quantity > 0 else 0
+    
+    context = {
+        'user': user,
+        'user_products': user_products,
+        'total_products': total_products,
+        'total_quantity': total_quantity,
+        'total_spent': total_spent,
+        'category_stats': category_stats,
+        'most_purchased_category': most_purchased_category,
+        'average_price': average_price,
+    }
+    
+    return render(request, 'user/profile.html', context)

@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# Redirects unauthenticated users to this route
+LOGIN_URL = '/login'
 # Application definition
 
 INSTALLED_APPS = [

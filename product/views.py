@@ -7,6 +7,7 @@ from .models import Product
 import requests
 import json
 
+@login_required
 def allProduct(request):
     try:
         # Fetch products from the fake store API
@@ -22,6 +23,7 @@ def allProduct(request):
     return render(request, 'product/allproduct.html', context)
 
 @login_required
+@csrf_exempt
 def add_product(request):
     if request.method == 'POST':
         try:
@@ -34,17 +36,12 @@ def add_product(request):
             ).first()
             
             if existing_product:
-                # If product exists, increment the quantity
-                existing_product.quantity += 1
-                existing_product.save()
                 return JsonResponse({
-                    'status': 'success',
-                    'message': f'Product quantity updated! Now you have {existing_product.quantity} of this item.',
-                    'product_id': existing_product.id,
-                    'quantity': existing_product.quantity
+                    'status': 'error',
+                    'message': 'Product already added to your collection'
                 })
             
-            # Create new product with quantity 1
+            # Create new product
             product = Product.objects.create(
                 user=request.user,
                 title=data.get('title'),
@@ -53,76 +50,19 @@ def add_product(request):
                 category=data.get('category'),
                 image_url=data.get('image'),
                 rate=data.get('rating', {}).get('rate', 0),
-                count=data.get('rating', {}).get('count', 0),
-                quantity=1
+                count=data.get('rating', {}).get('count', 0)
             )
             
             return JsonResponse({
                 'status': 'success',
                 'message': 'Product added successfully!',
-                'product_id': product.id,
-                'quantity': product.quantity
+                'product_id': product.id
             })
             
         except Exception as e:
             return JsonResponse({
                 'status': 'error',
                 'message': 'Failed to add product'
-            })
-    
-    return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
-
-@login_required
-def update_product_quantity(request):
-    if request.method == 'POST':
-        try:
-            data = json.loads(request.body)
-            product_id = data.get('product_id')
-            action = data.get('action')  # 'increase', 'decrease', or 'remove'
-            
-            product = Product.objects.get(id=product_id, user=request.user)
-            
-            if action == 'increase':
-                product.quantity += 1
-                product.save()
-                return JsonResponse({
-                    'status': 'success',
-                    'message': f'Quantity increased to {product.quantity}',
-                    'quantity': product.quantity
-                })
-            elif action == 'decrease':
-                if product.quantity > 1:
-                    product.quantity -= 1
-                    product.save()
-                    return JsonResponse({
-                        'status': 'success',
-                        'message': f'Quantity decreased to {product.quantity}',
-                        'quantity': product.quantity
-                    })
-                else:
-                    product.delete()
-                    return JsonResponse({
-                        'status': 'success',
-                        'message': 'Product removed from collection',
-                        'quantity': 0
-                    })
-            elif action == 'remove':
-                product.delete()
-                return JsonResponse({
-                    'status': 'success',
-                    'message': 'Product removed from collection',
-                    'quantity': 0
-                })
-            
-        except Product.DoesNotExist:
-            return JsonResponse({
-                'status': 'error',
-                'message': 'Product not found'
-            })
-        except Exception as e:
-            return JsonResponse({
-                'status': 'error',
-                'message': 'Failed to update product quantity'
             })
     
     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})

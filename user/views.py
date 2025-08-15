@@ -208,18 +208,18 @@ def profile_view(request):
     user_products = user.products.all().order_by('-created_at')
     
     # USD to INR conversion rate
-    USD_TO_INR_RATE = 83
+    # USD_TO_INR_RATE = 83
     
     # Calculate statistics (convert USD prices to INR)
     total_products = user_products.count()
     total_quantity = sum(product.quantity for product in user_products)
-    total_spent = sum((product.price * USD_TO_INR_RATE) * product.quantity for product in user_products)
+    total_spent = sum((product.price) * product.quantity for product in user_products)
     
     # Category statistics
     category_stats = {}
     for product in user_products:
         category = product.category
-        inr_price = product.price * USD_TO_INR_RATE
+        inr_price = product.price
         if category in category_stats:
             category_stats[category]['count'] += product.quantity
             category_stats[category]['amount'] += inr_price * product.quantity

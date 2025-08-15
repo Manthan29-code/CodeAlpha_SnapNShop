@@ -1,3 +1,4 @@
+
 <div class="col-lg-3 col-md-4 col-sm-6 product-card-wrapper">
     <div class="product-card" 
          data-product-id="{{ product.id }}"
@@ -42,7 +43,7 @@
                 </div>
                 
                 <div class="card-price">
-                    <span class="price-current">₹{{ product.price|floatformat:0 }}</span>
+                    <span class="price-current">{{ product.price }}</span>
                     <span class="price-currency">INR</span>
                 </div>
                 
@@ -94,7 +95,8 @@
                 </div>
                 
                 <div class="back-price">
-                    <span class="price-large">₹{{ product.price|floatformat:0 }}</span>
+                    <!-- <span class="price-large">₹{{ product.price|floatformat:0 }}</span> -->
+                    <span class="price-large">₹{{ product.price}}</span>
                 </div>
                 
                 {% if user.is_authenticated %}
@@ -110,3 +112,4 @@
         </div>
     </div>
 </div>
+

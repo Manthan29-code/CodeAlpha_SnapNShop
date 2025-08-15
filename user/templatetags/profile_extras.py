@@ -25,7 +25,7 @@ def usd_to_inr(value):
     """Convert USD price to INR."""
     try:
         usd_price = float(value)
-        inr_price = usd_price * 83  # USD to INR conversion rate
+        inr_price = usd_price * 1  # USD to INR conversion rate
         return int(round(inr_price))
     except (ValueError, TypeError):
         return 0

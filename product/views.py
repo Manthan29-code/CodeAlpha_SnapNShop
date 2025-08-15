@@ -23,7 +23,7 @@ def allProduct(request):
     return render(request, 'product/allproduct.html', context)
 
 @login_required
-@csrf_exempt
+# @csrf_exempt
 def add_product(request):
     if request.method == 'POST':
         try:

@@ -11,7 +11,7 @@ function initializeProfile() {
     initializeResponsiveBehavior();
     
     // Initialize animations
-    initializeAnimations();
+    // initializeAnimations();
     
     // Initialize tooltips and other interactive elements
     initializeInteractiveElements();

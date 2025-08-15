@@ -103,12 +103,11 @@ function showToast(message, type = 'success') {
     const toast = new bootstrap.Toast(toastElement);
     toast.show();
 }
-
+let conversion_time =1
 // Initialize card animations on page load
 document.addEventListener('DOMContentLoaded', function() {
     // Convert prices from USD to INR
     convertPricesToINR();
-    
     // Add fade-in animation to cards
     const cards = document.querySelectorAll('.product-card-wrapper');
     cards.forEach((card, index) => {
@@ -142,12 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Also run conversion on window load as backup
-window.addEventListener('load', function() {
-    setTimeout(convertPricesToINR, 100);
-    setTimeout(convertPricesToINR, 500);
-    setTimeout(convertPricesToINR, 1000);
-});
 
 // Convert all USD prices to INR on page load
 function convertPricesToINR() {
@@ -184,6 +177,13 @@ function convertPricesToINR() {
         }
     });
 }
+
+// Price conversion to INR (if needed for future API integrations)
+function convertToINR(usdPrice) {
+    const exchangeRate = 83; // Approximate USD to INR rate
+    return usdPrice * exchangeRate; // Return exact value, let caller decide formatting
+}
+
 
 // Search functionality
 function searchProducts() {
@@ -256,11 +256,6 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Price conversion to INR (if needed for future API integrations)
-function convertToINR(usdPrice) {
-    const exchangeRate = 83; // Approximate USD to INR rate
-    return usdPrice * exchangeRate; // Return exact value, let caller decide formatting
-}
 
 // Smooth scroll to top function
 function scrollToTop() {
